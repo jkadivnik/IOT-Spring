@@ -7,11 +7,70 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>iot Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+  <properties>
+  	<springframework.version>4.2.1.RELEASE</springframework.version>
+  	<junit.version>4.12</junit.version>
+  	<paho.mqttclient>1.0.2</paho.mqttclient>
+  	<slf4j.version>1.7.12</slf4j.version>
+  </properties>
+  
+  <repositories>
+    <repository>
+        <id>Eclipse Paho Repo</id>
+        <url>https://repo.eclipse.org/content/repositories/paho-releases/</url>
+    </repository>
+  </repositories>
+  
   <dependencies>
+    <!--  MQTT client -->
+    <dependency>
+        <groupId>org.eclipse.paho</groupId>
+        <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+        <version>${paho.mqttclient}</version>
+    </dependency>
+    
+    <!--  Spring libraries -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>${springframework.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${springframework.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+		</exclusions>
+    </dependency>
+	
+	<!-- Logging -->
+	<dependency>  
+	    <groupId>org.slf4j</groupId>  
+	    <artifactId>slf4j-api</artifactId>  
+	    <version>${slf4j.version}</version>  
+	</dependency>  
+	<dependency>  
+	    <groupId>org.slf4j</groupId>  
+	    <artifactId>slf4j-log4j12</artifactId>  
+	    <version>${slf4j.version}</version>  
+	</dependency>  
+	<dependency>  
+	    <groupId>log4j</groupId>  
+	    <artifactId>log4j</artifactId>  
+	    <version>1.2.16</version>  
+	    <scope>runtime</scope>  
+	</dependency>  	
+	
+	<!--  Junit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
