@@ -9,10 +9,19 @@
   <url>http://maven.apache.org</url>
   
   <properties>
-  	<springframework.version>4.2.1.RELEASE</springframework.version>
+	
+	
+  	<springframework.version>4.1.7.RELEASE</springframework.version>
   	<junit.version>4.12</junit.version>
   	<paho.mqttclient>1.0.2</paho.mqttclient>
   	<slf4j.version>1.7.12</slf4j.version>
+  	<mockito.version>1.10.19</mockito.version>
+  	<h2database.version>1.4.189</h2database.version>
+  	<hikaricp.version>2.4.1</hikaricp.version>
+  	<springdatajpa.version>1.9.0.RELEASE</springdatajpa.version>
+  	<hibernate.version>5.0.1.Final</hibernate.version>
+  	<mvncompilerplugin.version>3.3</mvncompilerplugin.version>
+  	
   </properties>
   
   <repositories>
@@ -30,11 +39,46 @@
         <version>${paho.mqttclient}</version>
     </dependency>
     
+    <!-- Persistence -->
+	<!-- Database (H2) -->
+	<dependency>
+	    <groupId>com.h2database</groupId>
+	    <artifactId>h2</artifactId>
+	    <version>${h2database.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.zaxxer</groupId>
+	    <artifactId>HikariCP</artifactId>
+	    <version>${hikaricp.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-entitymanager</artifactId>
+	    <version>${hibernate.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-jpa</artifactId>
+	    <version>${springdatajpa.version}</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-logging</artifactId>
+                <groupId>commons-logging</groupId>
+            </exclusion>
+        </exclusions>	
+	</dependency>
+	
     <!--  Spring libraries -->
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-core</artifactId>
 		<version>${springframework.version}</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-logging</artifactId>
+                <groupId>commons-logging</groupId>
+            </exclusion>
+        </exclusions>	
 	</dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
@@ -66,15 +110,45 @@
 	    <scope>runtime</scope>  
 	</dependency>  	
 	
-	<!--  Junit -->
+	<!--  Testing -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>org.mockito</groupId>
+    	<artifactId>mockito-all</artifactId>
+    	<version>${mockito.version}</version>
+    </dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${springframework.version}</version>
+		<exclusions>
+			<exclusion>
+				<artifactId>commons-logging</artifactId>
+				<groupId>commons-logging</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
   </dependencies>
+
   <build>
     <finalName>iot</finalName>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${mvncompilerplugin.version}</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
+  
 </project>
